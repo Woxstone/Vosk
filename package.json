@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "spike": "npx babel-node spike.js",
+    "intagracion": "npx babel-node pruebas_integracion.js",
     "test": "jest"
   },
   "author": "",

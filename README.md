@@ -48,3 +48,15 @@
      *
      * @param words - boolean value
      */
+
+----------------------------------------------------------------------------------------------
+{\rtf1
+{antes }
+{\b mierda}
+{  estos }
+{ y lo}
+\par
+{ otro mas}
+}
+
+ http://latex2rtf.sourceforge.net/rtfspec_62.html
