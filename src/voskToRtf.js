@@ -1,10 +1,11 @@
 import { RTF_doc } from "./RTF_doc.js";
 
 class ParserVoskToRTF {
-    static Parser(IntakeArray, accuracy) {
+    static Parser(IntakeArray, accuracy = 0.8) {
+        
         IntakeArray.forEach((element) => {
             if (!element.hasOwnProperty('result')) {
-                RTF_doc.writeText();
+                RTF_doc.writeText(element.text);
             } else {
                 const words = element.result;
                 words.forEach((word) => {
@@ -19,7 +20,6 @@ class ParserVoskToRTF {
     }
 
     static WriteText(path) {
-        console.log(RTF_doc.textRTF);
         RTF_doc.writeRTF(path);
     }
 }
