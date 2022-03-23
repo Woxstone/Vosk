@@ -1,5 +1,7 @@
 package-lock.json
 node_modules
 vosk-model-small-es-0.22
-default_audio.m4a
 ffmpeg-master-latest-win64-gpl
+*.m4a
+*.wav
+*.rtf

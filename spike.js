@@ -2,22 +2,25 @@ import ffmpeg from "fluent-ffmpeg";
 import vosk from "vosk";
 import fs from 'fs';
 import { spawn } from "child_process";
+import { ParserVoskToRTF } from "./src/voskToRtf.js";
 
 
-const m4afilename = './default_audio.m4a';
+const pathFile = './audioEntexto.rtf';
+const accuracy = 0.75;
+const m4afilename = './Grabación.m4a';
 const outputFile = m4afilename.replace(".m4a", ".wav");
 
 let converttowav = async function (m4afilename, outputFile) {
-    let command = ffmpeg(m4afilename).save(outputFile);
+    ffmpeg(m4afilename).save(outputFile);
 };
 
 const results = []
-converttowav(m4afilename, outputFile).then(() => {
-    speechrecog(outputFile);
 
+converttowav(m4afilename, outputFile).then(() => {
+    speechrecog(outputFile, pathFile, accuracy);
 });
 
-function speechrecog(FILE_NAME) {
+function speechrecog(FILE_NAME, path) {
 
     const MODEL_PATH = "./vosk-model-small-es-0.22"
     const SAMPLE_RATE = 16000
@@ -40,21 +43,14 @@ function speechrecog(FILE_NAME) {
         '-ar', String(SAMPLE_RATE), '-ac', '1',
         '-f', 's16le', '-bufsize', String(BUFFER_SIZE), '-']);
 
-
     ffmpeg_run.stdout.on('data', (stdout) => {
         if (rec.acceptWaveform(stdout))
             results.push(rec.result());
         results.push(rec.finalResult());
-        console.log(results);
     });
 
-    // ffmpeg_run.stdout.on('data', (stdout) => {
-    //     if (rec.acceptWaveform(stdout)) {
-    //         console.log(rec.result());
-    //     }
-    //     else {
-    //         console.log(rec.partialResult());
-    //     }
-    //     console.log(rec.finalResult());
-    // });
+    ffmpeg_run.stdout.on('close', () => {
+        ParserVoskToRTF.Parser(results, accuracy);
+        ParserVoskToRTF.WriteText(path);
+    });
 }

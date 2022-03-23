@@ -43,7 +43,6 @@ class RTF_doc {
         this.textRTF += `{\\cf6 ${texto}}`;
         return this.textRTF;
     }
-
 }
 
 
