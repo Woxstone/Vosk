@@ -2,8 +2,6 @@ import ffmpeg from "fluent-ffmpeg";
 import vosk from "vosk";
 import fs from 'fs';
 import { spawn } from "child_process";
-const parseRTF = require('rtf-parser');
-const { stringifySync } = require('subtitle');
 
 
 const m4afilename = './default_audio.m4a';
